@@ -1,13 +1,12 @@
-# Tasmota-decode-status
-Decode Status Tool for Tasmota (Windows exe)
+Windows executable for Tasmota Decode Status Tool
 
-compiled version of https://github.com/arendst/Tasmota/blob/development/tools/decode-status.py
+compiled from https://github.com/arendst/Tasmota/blob/development/tools/decode-status.py
 
 
 Instructions:
 
     Execute command with option -d to retrieve status report from device or
-    get a copy of the status message with http command http://sonoff/cm?cmnd=status%200
+    get a copy of the status message with http command http://tasmotaip/cm?cmnd=status%200
     and store it in file status.json
 
 Usage:
