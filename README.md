@@ -17,7 +17,7 @@ Usage:
 
 Example:
 
-    decode-status.py -d 192.168.2.112
-    decode-status.py -d tasmota1 -p 12345678
+    decode-status -d 192.168.2.112
+    decode-status -d tasmota1 -p 12345678
         or
-	decode-status.py -f status.json
+	decode-status -f status.json
