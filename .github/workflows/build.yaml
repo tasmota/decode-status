@@ -9,15 +9,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Python 3.8
+    - name: Set up Python 2.7
       uses: actions/setup-python@v1
       with:
-        python-version: 3.8
+        python-version: 2.7
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install pyinstaller
     - name: build with pyinstaller
       run: |
-        pyinstaller decode-status.py
+        pyinstaller decode-status.py ds-build-win.spec
  
