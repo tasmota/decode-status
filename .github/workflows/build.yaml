@@ -52,7 +52,7 @@ jobs:
             pip install pyinstaller
          - name: Build ${{ matrix.architecture }} with pyinstaller
            run: |
-              pyinstaller --distpath . decode-status.py ds-build-win-${{ matrix.architecture }}.spec                
+              pyinstaller decode-status.py ds-build-win-${{ matrix.architecture }}.spec                
          - name: Load Release URL File from release job
            uses: actions/download-artifact@v1
            with:
@@ -66,7 +66,7 @@ jobs:
          - name: Debug           
            shell: bash
            run: |              
-              echo `ls -la`
+              echo `ls -la dist/`
          - name: Upload Release Asset
            id: upload-release-asset 
            uses: actions/upload-release-asset@v1.0.1
