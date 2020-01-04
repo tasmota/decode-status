@@ -57,7 +57,7 @@ jobs:
            uses: actions/download-artifact@v1
            with:
               name: release_url
-         - name: Get Release File Name & Upload URL
+         - name: Get Pre-release File Name & Upload URL
            id: get_release_info
            run: |
               value=`cat release_url/release_url.txt`
