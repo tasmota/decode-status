@@ -4,8 +4,6 @@ on:
     push:
       branches:
         - "master"
-      tags:
-          - "v*"
 
 jobs:
     create-prelease:
@@ -76,6 +74,6 @@ jobs:
              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
            with:
               upload_url: ${{ steps.get_release_info.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-              asset_path: dist/decode-status/decode-status-${{ matrix.architecture }}.exe
+              asset_path: dist/decode-status-${{ matrix.architecture }}.exe
               asset_name: decode-status-${{ matrix.architecture }}.exe
               asset_content_type: application/vnd.microsoft.portable-executable  
