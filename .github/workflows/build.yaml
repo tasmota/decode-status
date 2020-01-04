@@ -27,7 +27,7 @@ jobs:
             pip install pyinstaller
          - name: build with pyinstaller
            run: |
-              pyinstaller decode-status.py ds-build-win.spec       
+              pyinstaller decode-status.py ds-build-win-${{ matrix.architecture }}.spec       
          - name: Create Release
            id: create_release
            uses: actions/create-release@v1.0.0
