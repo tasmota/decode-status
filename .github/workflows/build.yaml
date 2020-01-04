@@ -7,7 +7,7 @@ on:
 
 jobs:
     create-prelease:
-     name: "Create Pre-release"
+     name: Create Pre-release
      runs-on: windows-latest
      steps:
       - name: Check out code
