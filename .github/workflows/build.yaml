@@ -27,13 +27,14 @@ jobs:
             pip install pyinstaller
          - name: build with pyinstaller
            run: |
-              pyinstaller decode-status.py ds-build-win.spec
-              
-         - uses: "marvinpinto/action-automatic-releases@latest"
+              pyinstaller decode-status.py ds-build-win.spec              
+         - name: Upload Release Asset
+           id: upload-release-asset 
+           uses: actions/upload-release-asset@v1.0.1
+           env:
+             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
            with:
-             repo_token: "${{ secrets.GITHUB_TOKEN }}"
-             automatic_release_tag: "latest"
-             prerelease: true
-             title: "Development Build"
-             files: |
-                *.exe           
+              upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+              asset_path: ./decode-status-${{ matrix.architecture }}.exe
+              asset_name: decode-status-${{ matrix.architecture }}.exe
+              asset_content_type: application/vnd.microsoft.portable-executable  
