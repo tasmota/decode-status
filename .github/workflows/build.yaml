@@ -6,8 +6,22 @@ on:
         - "master"
 
 jobs:
-    pre-release:
-      name: "Pre Release"
+    create-prelease:
+     name: "Create Pre-release"
+     runs-on: windows-latest
+     steps:
+      - uses: actions/create-release@v1.0.0
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+         tag_name: ${{ github.ref }}
+         release_name: Pre-release ${{ github.ref }} ${{ matrix.architecture }}
+         draft: false
+         prerelease: True       
+    
+    build-upload:
+      needs: [create-prelease]
+      name: "Build and upload assets"      
       
       runs-on: windows-latest
       strategy:
@@ -25,19 +39,9 @@ jobs:
            run: |
             python -m pip install --upgrade pip
             pip install pyinstaller
-         - name: build with pyinstaller
+         - name: Build with pyinstaller
            run: |
-              pyinstaller decode-status.py ds-build-win-${{ matrix.architecture }}.spec       
-         - name: Create Release
-           id: create_release
-           uses: actions/create-release@v1.0.0
-           env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-           with:
-            tag_name: ${{ github.ref }}
-            release_name: Pre-release ${{ github.ref }} ${{ matrix.architecture }}
-            draft: false
-            prerelease: True       
+              pyinstaller decode-status.py ds-build-win-${{ matrix.architecture }}.spec                
          - name: Upload Release Asset
            id: upload-release-asset 
            uses: actions/upload-release-asset@v1.0.1
