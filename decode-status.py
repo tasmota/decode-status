@@ -2,28 +2,36 @@
 
 """
   decode-status.py - decode status for Tasmota
+
   Copyright (C) 2020  Theo Arends
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
+
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Public License for more details.
+
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 Requirements:
    - Python
    - pip json pycurl
+
 Instructions:
     Execute command with option -d to retrieve status report from device or
     get a copy of the status message with http command http://sonoff/cm?cmnd=status%200
     and store it in file status.json
+
 Usage:
     ./decode-status.py -d <hostname or IP address> [-u username] [-p password]
         or
     ./decode-status.py -f <JSON status information file>
+
 Example:
     ./decode-status.py -d sonoff1
     ./decode-status.py -d sonoff1 -p 12345678
@@ -140,7 +148,8 @@ a_setoption = [[
     "Enable light fading at start/power on",
     "Set PWM Mode from regular PWM to ColorTemp control","",
     "Keep uncompressed rules in memory to avoid CPU load of uncompressing at each tick",
-    "","","",
+    "Implement simpler MAX6675 protocol instead of MAX31855",
+    "","",
     "","","","",
     "","","","",
     "","","","",
@@ -196,7 +205,7 @@ a_features = [[
     "USE_KEELOQ","USE_HRXL","USE_SONOFF_D1","USE_HDC1080",
     "USE_IAQ","USE_DISPLAY_SEVENSEG","USE_AS3935","USE_PING",
     "USE_WINDMETER","USE_OPENTHERM","USE_THERMOSTAT","USE_VEML6075",
-    "USE_VEML7700","","","",
+    "USE_VEML7700","USE_MCP9808","USE_BL0940","",
     "","","","",
     "","","","",
     "","","","",
@@ -234,7 +243,7 @@ else:
         obj = json.load(fp)
 
 def StartDecode():
-    print ("\n*** decode-status.py v20200510 by Theo Arends and Jacek Ziolkowski ***")
+    print ("\n*** decode-status.py v20200607 by Theo Arends and Jacek Ziolkowski ***")
 
 #    print("Decoding\n{}".format(obj))
 
