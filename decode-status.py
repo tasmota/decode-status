@@ -17,11 +17,11 @@
   
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  
+
 Requirements:
    - Python
    - pip json requests
-   
+
 Instructions:
     Execute command with option -d to retrieve status report from device or
     get a copy of the status message with http command http://sonoff/cm?cmnd=status%200
@@ -229,7 +229,7 @@ a_features = [[
     "USE_VEML7700","USE_MCP9808","USE_BL0940","USE_TELEGRAM",
     "USE_HP303B","USE_TCP_BRIDGE","USE_TELEINFO","USE_LMT01",
     "USE_PROMETHEUS","USE_IEM3000","USE_DYP","USE_I2S_AUDIO",
-    "USE_MLX90640","","","",
+    "USE_MLX90640","USE_VL53L1X","","",
     "","USE_TTGO_WATCH","USE_ETHERNET","USE_WEBCAM"
     ],[
     "","","","",
