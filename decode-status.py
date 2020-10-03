@@ -2,19 +2,19 @@
 
 """
   decode-status.py - decode status for Tasmota
-  
+
   Copyright (C) 2020  Theo Arends
-  
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
-  
+
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Public License for more details.
-  
+
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -229,7 +229,7 @@ a_features = [[
     "USE_VEML7700","USE_MCP9808","USE_BL0940","USE_TELEGRAM",
     "USE_HP303B","USE_TCP_BRIDGE","USE_TELEINFO","USE_LMT01",
     "USE_PROMETHEUS","USE_IEM3000","USE_DYP","USE_I2S_AUDIO",
-    "USE_MLX90640","USE_VL53L1X","","",
+    "USE_MLX90640","USE_VL53L1X","USE_MIEL_HVAC","USE_WE517",
     "","USE_TTGO_WATCH","USE_ETHERNET","USE_WEBCAM"
     ],[
     "","","","",
@@ -267,7 +267,7 @@ else:
         obj = json.load(fp)
 
 def StartDecode():
-    print ("\n*** decode-status.py v20200915 by Theo Arends and Jacek Ziolkowski ***")
+    print ("\n*** decode-status.py v20201002 by Theo Arends and Jacek Ziolkowski ***")
 
 #    print("Decoding\n{}".format(obj))
 
