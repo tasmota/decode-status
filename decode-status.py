@@ -2,26 +2,26 @@
 
 """
   decode-status.py - decode status for Tasmota
-  
+
   Copyright (C) 2021  Theo Arends
-  
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
-  
+
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Public License for more details.
- 
- You should have received a copy of the GNU General Public License
+
+  You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Requirements:
    - Python
    - pip json requests
-   
+
 Instructions:
     Execute command with option -d to retrieve status report from device or
     get a copy of the status message with http command http://sonoff/cm?cmnd=status%200
@@ -177,8 +177,11 @@ a_setoption = [[
     "(Zigbee) Append endpoint number to topic if device dependent (use with SetOption89)",
     "(MQTT) Retain on State",
     "(MQTT) Retain on Info",
+    "(Wiegand) switch tag number output to hex format (1)",
+    "(Wiegand) send key pad stroke as single char (0) or one tag (ending char #) (1)",
+    "(Zigbee) Hide bridge topic from zigbee topic (use with SetOption89) (1)",
+    "(DS18x20) Enable arithmetic mean over teleperiod for JSON temperature (1)",
     "","","",
-    "","","","",
     "","","","",
     "","","","",
     "","","","",
@@ -249,8 +252,8 @@ a_features = [[
     "USE_BS814A2","USE_SEESAW_SOIL","USE_WIEGAND","USE_NEOPOOL",
     "USE_TOF10120","USE_SDM72","USE_DISPLAY_TM1637","USE_PROJECTOR_CTRL"
     ],[
-    "","","","",
-    "","","","",
+    "USE_MPU6886","USE_TFMINIPLUS","USE_CSE7761","USE_BERRY",
+    "USE_HALLEFFECT","USE_ENERGY_DUMMY","","",
     "","","","",
     "","","","",
     "","","","",
@@ -284,7 +287,7 @@ else:
         obj = json.load(fp)
 
 def StartDecode():
-    print ("\n*** decode-status.py v20210222 by Theo Arends and Jacek Ziolkowski ***")
+    print ("\n*** decode-status.py v20210406 by Theo Arends and Jacek Ziolkowski ***")
 
 #    print("Decoding\n{}".format(obj))
 
