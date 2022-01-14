@@ -49,7 +49,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pyinstaller
+          pip install -r requirements.txt
       - name: Build ${{ matrix.architecture }} with pyinstaller
         run: |
           pyinstaller ds-build-win-${{ matrix.architecture }}.spec
@@ -93,7 +93,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pyinstaller
+          pip install -r requirements.txt
       - name: Build with pyinstaller
         run: |
           pyinstaller ds-build-mac.spec
