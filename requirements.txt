@@ -1,2 +1,2 @@
-PyInstaller>=3.6
+pyinstaller>=4.7
 requests
