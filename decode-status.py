@@ -196,7 +196,8 @@ a_setoption = [[
     "(Pressure) Switch between mmHg (0) or inHg (1) when SO24 1",
     "(MQTT) MQTT clean session (0 = default) or persistent session (1)",
     "(GUI) Disable display of GUI module name (1)",
-    "","","",""
+    "(Wifi) Wait 1 second for wifi connection solving some FRITZ!Box modem issues (1)",
+    "","",""
     ],[
     "","","","",
     "","","","",
@@ -279,7 +280,7 @@ a_features = [[
     "USE_HDC2010","USE_LSC_MCSL","USE_SONOFF_SPM","USE_SHIFT595",
     "USE_SDM230","USE_CM110x","USE_BL6523","USE_ADE7880",
     "USE_PCF85363","USE_DS3502","USE_IMPROV","USE_FLOWRATEMETER",
-    "USE_BP5758D","","",""
+    "USE_BP5758D","USE_HYT","",""
     ],[
     "","","","",
     "","","","",
