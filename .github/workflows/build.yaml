@@ -51,7 +51,7 @@ jobs:
         run: |
           pyinstaller ds-build-mac.spec
           create-dmg decode-status.dmg dist
-          cp create-dmg dist
+          cp /Users/runner/work/decode-status/decode-status/decode-status.dmg dist
       - name: Upload Mac binary
         uses: actions/upload-artifact@master
         with:
