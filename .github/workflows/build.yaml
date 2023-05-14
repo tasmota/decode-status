@@ -6,39 +6,12 @@ on:
       - "master"
 
 jobs:
-  create-prelease:
-    name: Create Pre-release
-    runs-on: windows-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-      - name: create release
-        id: create_release 
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
-          draft: false
-          prerelease: true
-      - name: Output Release URL File
-        run: echo "${{ steps.create_release.outputs.upload_url }}" > release_url.txt
-      - name: Save Release URL File for publish
-        uses: actions/upload-artifact@v3
-        with:
-          name: release_url
-          path: release_url.txt
-
-  build-upload-win:
-    needs: [create-prelease]
-    name: "Build and upload Windows assets"
-
+  build-win:
+    name: "Build Windows"
     runs-on: windows-latest
     strategy:
       matrix:
         architecture: [x64, x86]
-
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
@@ -52,41 +25,27 @@ jobs:
       - name: Build ${{ matrix.architecture }} with pyinstaller
         run: |
           pyinstaller ds-build-win-${{ matrix.architecture }}.spec
-      - name: Load Release URL File from release job
-        uses: actions/download-artifact@v3
-        with:
-          name: release_url
-      - name: Get Pre-release File Name & Upload URL
-        id: get_release_info
-        shell: bash
-        run: |
-          value=`cat release_url/release_url.txt`
-          echo ::set-output name=upload_url::$value
       - name: Debug
         shell: bash
         run: |
           echo `ls -la dist/`
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Windows binarys
+        uses: actions/upload-artifact@master
         with:
-          upload_url: ${{ steps.get_release_info.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: dist/decode-status-${{ matrix.architecture }}.exe
-          asset_name: decode-status-${{ matrix.architecture }}.exe
-          asset_content_type: application/vnd.microsoft.portable-executable
+          name: decode-status-windows
+          path: dist/decode-status-${{ matrix.architecture }}.exe
 
-  build-upload-mac:
-    needs: [create-prelease]
-    name: "Build and upload MacOS assets"
 
+  build-mac:
+    name: "Build MacOS"
+    needs: build-win
     runs-on: macos-latest
-
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -94,27 +53,34 @@ jobs:
       - name: Build with pyinstaller
         run: |
           pyinstaller ds-build-mac.spec
-      - name: Load Release URL File from release job
-        uses: actions/download-artifact@v3
+      - name: Upload Mac binary
+        uses: actions/upload-artifact@master
         with:
-          name: release_url
-      - name: Get Pre-release File Name & Upload URL
-        id: get_release_info
-        shell: bash
-        run: |
-          value=`cat release_url/release_url.txt`
-          echo ::set-output name=upload_url::$value
-      - name: Debug
-        shell: bash
-        run: |
-          echo `ls -la dist/`
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1.0.1
+          name: decode-status-mac
+          path: dist/decode-status
+
+  release:
+    name: "Release Decode-status"
+    needs: build-mac
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - uses: jason2866/download-artifact@v3
+        with:
+          name: |
+            decode-status-windows
+            decode-status-mac
+          path: |
+            ./output/
+            ./output/
+      - name: Release
+        uses: jason2866/action-gh-release@v1.2
+        with:
+          tag_name: ${{ env.RELEASE_VERSION }}
+          files: ./output/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.get_release_info.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: dist/decode-status
-          asset_name: decode-status
-          asset_content_type: applications/octet-stream
