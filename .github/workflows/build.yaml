@@ -47,10 +47,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           brew install create-dmg
-          cp create-dmg dist
       - name: Build with pyinstaller
         run: |
           pyinstaller ds-build-mac.spec
+          cp create-dmg dist
       - name: Upload Mac binary
         uses: actions/upload-artifact@master
         with:
