@@ -53,7 +53,7 @@ jobs:
         run: |
           pyinstaller ds-build-win-${{ matrix.architecture }}.spec
       - name: Load Release URL File from release job
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: release_url
       - name: Get Pre-release File Name & Upload URL
