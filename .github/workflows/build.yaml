@@ -50,6 +50,7 @@ jobs:
       - name: Build with pyinstaller
         run: |
           pyinstaller ds-build-mac.spec
+          create-dmg decode-status.dmg dist
           cp create-dmg dist
       - name: Upload Mac binary
         uses: actions/upload-artifact@master
