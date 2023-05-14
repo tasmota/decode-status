@@ -80,7 +80,7 @@ jobs:
       - name: Release
         uses: jason2866/action-gh-release@v1.2
         with:
-          tag_name: ${{ env.RELEASE_VERSION }}
+          tag_name: ${{ github.run_number }}
           files: ./output/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
