@@ -25,10 +25,6 @@ jobs:
       - name: Build ${{ matrix.architecture }} with pyinstaller
         run: |
           pyinstaller ds-build-win-${{ matrix.architecture }}.spec
-      - name: Debug
-        shell: bash
-        run: |
-          echo `ls -la dist/`
       - name: Upload Windows binarys
         uses: actions/upload-artifact@master
         with:
@@ -57,7 +53,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: decode-status-mac
-          path: dist/decode-status
+          path: dist/decode-status.app
 
   release:
     name: "Release Decode-status"
