@@ -53,7 +53,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: decode-status-mac
-          path: dist/decode-status.app
+          path: dist/*
 
   release:
     name: "Release Decode-status"
