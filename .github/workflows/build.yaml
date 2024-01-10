@@ -8,10 +8,10 @@ on:
 jobs:
   build-win:
     name: "Build Windows"
-    runs-on: windows-2019
+    runs-on: windows-latest
     strategy:
       matrix:
-        architecture: [x64, x86]
+        architecture: [x64]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
