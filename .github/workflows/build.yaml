@@ -8,7 +8,7 @@ on:
 jobs:
   build-win:
     name: "Build Windows"
-    runs-on: windows-latest
+    runs-on: windows-2019
     strategy:
       matrix:
         architecture: [x64, x86]
