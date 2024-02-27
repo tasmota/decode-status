@@ -88,6 +88,7 @@ jobs:
           path: |
             ./output/
             ./output/
+            ./output/
       - name: Release
         uses: jason2866/action-gh-release@v1.3
         with:
