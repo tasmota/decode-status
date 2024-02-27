@@ -30,7 +30,7 @@ jobs:
       - name: Upload Windows binarys
         uses: jason2866/upload-artifact@v2.0.3
         with:
-          name: decode-status-windows
+          name: decode-status-windows-${{ matrix.architecture }}
           path: dist/decode-status-${{ matrix.architecture }}.exe
 
 
@@ -79,13 +79,15 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
-      - uses: jason2866/download-artifact@v3
+      - uses: jason2866/download-artifact@v3.0.4
         with:
           name: |
-            decode-status-windows
+            decode-status-windows-x64
+            decode-status-windows-x86
             decode-status-macos
             decode-status-macos-arm
           path: |
+            ./output/
             ./output/
             ./output/
             ./output/
