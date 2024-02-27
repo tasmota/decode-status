@@ -34,9 +34,19 @@ jobs:
 
 
   build-mac:
-    name: "Build MacOS"
+    name: Build for ${{ matrix.os }}
     needs: build-win
-    runs-on: macos-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-14, macos-latest]
+        include:
+        - os: macos-14
+          TARGET: macos-arm
+        - os: macos-latest
+          TARGET: macos
+    env:
+      DISTPATH: decode-status-${{ matrix.TARGET }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -56,7 +66,7 @@ jobs:
       - name: Upload Mac binary
         uses: jason2866/upload-artifact@v2.0.3
         with:
-          name: decode-status-mac
+          name:  ${{ env.DISTPATH }}
           path: /Users/runner/work/decode-status/decode-status/decode-status.dmg
 
   release:
@@ -73,7 +83,8 @@ jobs:
         with:
           name: |
             decode-status-windows
-            decode-status-mac
+            decode-status-macos
+            decode-status-macos-arm
           path: |
             ./output/
             ./output/
