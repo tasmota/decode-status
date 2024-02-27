@@ -62,12 +62,12 @@ jobs:
         run: |
           pyinstaller ds-build-mac.spec
           rm -Rf dist/*.app
-          create-dmg decode-status.dmg dist
+          create-dmg decode-status-${{ matrix.TARGET }}.dmg dist
       - name: Upload Mac binary
         uses: jason2866/upload-artifact@v2.0.3
         with:
           name:  ${{ env.DISTPATH }}
-          path: /Users/runner/work/decode-status/decode-status/decode-status.dmg
+          path: /Users/runner/work/decode-status/decode-status/decode-status-${{ matrix.TARGET }}.dmg
 
   release:
     name: "Release Decode-status"
