@@ -13,9 +13,9 @@ jobs:
       matrix:
         architecture: [x64]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           architecture: ${{ matrix.architecture }}
       - name: Install dependencies
@@ -26,7 +26,7 @@ jobs:
         run: |
           pyinstaller ds-build-win-${{ matrix.architecture }}.spec
       - name: Upload Windows binarys
-        uses: actions/upload-artifact@master
+        uses: jason2866/upload-artifact@v2.0.3
         with:
           name: decode-status-windows
           path: dist/decode-status-${{ matrix.architecture }}.exe
@@ -37,9 +37,9 @@ jobs:
     needs: build-win
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
       - name: Install dependencies
@@ -53,7 +53,7 @@ jobs:
           rm -Rf dist/*.app
           create-dmg decode-status.dmg dist
       - name: Upload Mac binary
-        uses: actions/upload-artifact@master
+        uses: jason2866/upload-artifact@v2.0.3
         with:
           name: decode-status-mac
           path: /Users/runner/work/decode-status/decode-status/decode-status.dmg
@@ -63,9 +63,9 @@ jobs:
     needs: build-mac
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
       - uses: jason2866/download-artifact@v3
@@ -77,7 +77,7 @@ jobs:
             ./output/
             ./output/
       - name: Release
-        uses: jason2866/action-gh-release@v1.2
+        uses: jason2866/action-gh-release@v1.3
         with:
           tag_name: ${{ github.run_number }}
           files: ./output/*
