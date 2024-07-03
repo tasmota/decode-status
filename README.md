@@ -21,3 +21,8 @@ Example:
     decode-status -d tasmota1 -p 12345678
         or
 	decode-status -f status.json
+
+Notes:
+
+    status.json is the plaintext output of "status 3" entered into the Tasmota web console. 
+    Please exclude the timestamp and everything before the "="
