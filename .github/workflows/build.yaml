@@ -71,7 +71,7 @@ jobs:
 
   release:
     name: "Release Decode-status"
-    needs: build-mac
+    needs: [build-mac, build-win]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
