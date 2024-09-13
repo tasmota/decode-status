@@ -39,11 +39,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-14, macos-latest]
+        os: [macos-14, macos-12]
         include:
         - os: macos-14
           TARGET: macos-arm
-        - os: macos-latest
+        - os: macos-12
           TARGET: macos
     env:
       DISTPATH: decode-status-${{ matrix.TARGET }}
