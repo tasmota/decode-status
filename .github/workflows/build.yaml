@@ -43,7 +43,7 @@ jobs:
         include:
         - os: macos-14
           TARGET: macos-arm
-        - os: macos-12
+        - os: macos-13
           TARGET: macos
     env:
       DISTPATH: decode-status-${{ matrix.TARGET }}
