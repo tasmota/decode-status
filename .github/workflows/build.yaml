@@ -28,7 +28,7 @@ jobs:
         run: |
           pyinstaller ds-build-win-${{ matrix.architecture }}.spec
       - name: Upload Windows binarys
-        uses: jason2866/upload-artifact@v2.0.3
+        uses: actions/upload-artifact@v4
         with:
           name: decode-status-windows-${{ matrix.architecture }}
           path: dist/decode-status-${{ matrix.architecture }}.exe
@@ -64,7 +64,7 @@ jobs:
           rm -Rf dist/*.app
           create-dmg decode-status-${{ matrix.TARGET }}.dmg dist
       - name: Upload Mac binary
-        uses: jason2866/upload-artifact@v2.0.3
+        uses: actions/upload-artifact@v4
         with:
           name:  ${{ env.DISTPATH }}
           path: /Users/runner/work/decode-status/decode-status/decode-status-${{ matrix.TARGET }}.dmg
@@ -79,18 +79,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
-      - uses: jason2866/download-artifact@v3.0.4
-        with:
-          name: |
-            decode-status-windows-x64
-            decode-status-windows-x86
-            decode-status-macos
-            decode-status-macos-arm
-          path: |
-            ./output/
-            ./output/
-            ./output/
-            ./output/
+      - uses: actions/download-artifact@v4
+        with:       
+          path: ./output/
+          merge-multiple: true
       - name: Release
         uses: jason2866/action-gh-release@v1.3
         with:
